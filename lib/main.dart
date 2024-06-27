@@ -65,7 +65,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(66, 59, 58, 58),
-        title: Text('Films'),
+        title: const Text('Films'),
         centerTitle: true,
       ),
     );
