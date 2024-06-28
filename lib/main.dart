@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_project_6/films.dart';
 
 void main() {
   runApp(
@@ -60,6 +61,8 @@ class Film {
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
+
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -67,6 +70,26 @@ class HomePage extends ConsumerWidget {
         backgroundColor: const Color.fromARGB(66, 59, 58, 58),
         title: const Text('Films'),
         centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          const FilterWidget(),
+          Consumer(
+            builder: (context, ref, child) {
+              final filter = ref.watch(favoriteStatusProvider);
+              switch (filter) {
+                
+                case FavoriteStatus.all:
+                  return FilmsList(provider: allFimsProvider);
+                case FavoriteStatus.favorite:
+                  return FilmsList(provider: favoriteFilmsProvider);
+                case FavoriteStatus.notFavorite:
+                  return FilmsList(provider: notFavoriteFilmsProvider);
+              }
+            }
+          )
+          // const FilmsWidget(provider: provider)
+        ]
       ),
     );
   }
