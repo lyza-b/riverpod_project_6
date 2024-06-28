@@ -62,7 +62,6 @@ class Film {
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
-  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -71,26 +70,21 @@ class HomePage extends ConsumerWidget {
         title: const Text('Films'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const FilterWidget(),
-          Consumer(
-            builder: (context, ref, child) {
-              final filter = ref.watch(favoriteStatusProvider);
-              switch (filter) {
-                
-                case FavoriteStatus.all:
-                  return FilmsList(provider: allFimsProvider);
-                case FavoriteStatus.favorite:
-                  return FilmsList(provider: favoriteFilmsProvider);
-                case FavoriteStatus.notFavorite:
-                  return FilmsList(provider: notFavoriteFilmsProvider);
-              }
-            }
-          )
-          // const FilmsWidget(provider: provider)
-        ]
-      ),
+      body: Column(children: [
+        const FilterWidget(),
+        Consumer(builder: (context, ref, child) {
+          final filter = ref.watch(favoriteStatusProvider);
+          switch (filter) { 
+            case FavoriteStatus.all:
+              return FilmsList(provider: allFimsProvider);
+            case FavoriteStatus.favorite:
+              return FilmsList(provider: favoriteFilmsProvider);
+            case FavoriteStatus.notFavorite:
+              return FilmsList(provider: notFavoriteFilmsProvider);
+          }
+        })
+        // const FilmsWidget(provider: provider)
+      ]),
     );
   }
 }
